@@ -1,11 +1,13 @@
 package com.github.pwittchen.neurosky.app;
 
 import android.annotation.SuppressLint;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Environment;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
@@ -27,13 +29,23 @@ import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
-import com.shidian.excel.ExcelUtils;
+import java.text.SimpleDateFormat;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class MainActivity extends AppCompatActivity {
 
   private final static String LOG_TAG = "NeuroSky";
   private final static String Record = "Record";
   private NeuroSky neuroSky;
+
+  private MediaPlayer mediaPlayer;
+  private SeekBar seekBar;
+  private Timer timer;
+  private boolean isSeekBarChanging;
+  private int currentPosition;
+  Button pauseButton;
+  private boolean isPause = false;
 
   private static String[] title = {"High_alpga","Theta","Mid_Gamma","High_beta","Delta","Low_gamma","Low_beta","Low_alpha"};
   @BindView(R.id.tv_state) TextView tvState;
@@ -42,15 +54,13 @@ public class MainActivity extends AppCompatActivity {
   @BindView(R.id.tv_blink) TextView tvBlink;
   Integer attention = -1;
   Integer mediatation = -1;
-  Integer poorSignal = -1;
-  private Map<String, Object> brainWaveItem;
-  private Map<String, Integer> bridge;//從handleBrainWavesChange傳到外面
-  private static final String TAG = "YoutubePlayerActivity";
+
   private ArrayList<ArrayList<String>> recordList;
-  private Map<String, Integer> brainWaveRow;
   public ArrayList<WaveModel> modelWaveModelList = new ArrayList<WaveModel>();
   public ArrayList<String> attetionList = new ArrayList<String>();
   public ArrayList<String> meditationList = new ArrayList<String>();
+
+  Date date = new Date();
 
   Button button;
   Button getAll_btn;
@@ -58,14 +68,95 @@ public class MainActivity extends AppCompatActivity {
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_main);
+
+
+    mediaPlayer = MediaPlayer.create(this, R.raw.mix_4m55s);
+    seekBar = (SeekBar) findViewById(R.id.playSeekBar);
+    seekBar.setOnSeekBarChangeListener(new MySeekBar());
+    Button playButton = (Button) findViewById(R.id.start);
+    mediaPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+      @Override
+      public void onPrepared(MediaPlayer mediaPlayer) {
+      playButton.setOnClickListener(new View.OnClickListener() {
+        @Override
+        public void onClick (View view){
+          mediaPlayer.start();
+          seekBar.setMax(mediaPlayer.getDuration());
+          if(isPause){
+            pauseButton.setText("藍寶中場休息!");
+            isPause = false;//设置暂停标记变量的值为false
+          }
+          mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+            @Override
+            public void onCompletion(MediaPlayer mediaPlayer) {
+              Toast.makeText(MainActivity.this, "The song is Over", Toast.LENGTH_SHORT).show();
+            }
+          });
+          timer = new Timer();
+          timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+              if(!isSeekBarChanging){
+                seekBar.setProgress(mediaPlayer.getCurrentPosition());
+              }
+            }
+          },0,50);
+        }
+    });
+    }
+    });
+
+    Button stopButton = (Button) findViewById(R.id.stop);
+    stopButton.setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View view) {
+        if (mediaPlayer.isPlaying()) {
+          mediaPlayer.pause();
+          mediaPlayer.seekTo(0);
+        }
+      }
+    });
+    pauseButton = (Button) findViewById(R.id.pause);
+    pauseButton.setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View view) {
+        if(mediaPlayer.isPlaying()&&!isPause){
+          mediaPlayer.pause();//暂停播放
+          isPause = true;
+          ((Button)view).setText("藍寶繼續放肆起來~");
+          playButton.setEnabled(true);//“播放”按钮可用
+        }else{
+          mediaPlayer.start();//继续播放
+          ((Button)view).setText("藍寶停停停....");
+          isPause = false;
+          playButton.setEnabled(false);//“播放”按钮不可用
+        }
+      }
+    });
+
+
     button = findViewById(R.id.test);
     button.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View view) {
         Log.d("gagaga","gagag");
+        SimpleDateFormat format0 = new SimpleDateFormat("HH:mm:ss");
+        String time = format0.format(date.getTime());
+        String[] time2 = time.split(":");
+
         for(int i = 0 ; i < modelWaveModelList.size() ; i++){
+          time2[2] = (Integer.parseInt(time2[2])+1)+"";
+          if(time2[2].equals("60")){
+            time2[2] = "0";
+            time2[1] = (Integer.parseInt(time2[1])+1)+"";
+            if(time2[1].equals("60")){
+              time2[1] = "0";
+              time2[0] = (Integer.parseInt(time2[0])+1)+"";
+            }
+          }
+          time = time2[0] + ":" + time2[1] + ":" + time2[2];
           PostDB postDB = new PostDB();
-          postDB.execute("http://172.20.10.6/register_finish.php","1","2019/10/02",modelWaveModelList.get(i).getDELTA(),
+          postDB.execute("http://192.168.43.149/register_finish.php","1",time,"1",modelWaveModelList.get(i).getDELTA(),
                   modelWaveModelList.get(i).getTHETA(),modelWaveModelList.get(i).getLOW_ALPHA(),modelWaveModelList.get(i).getHIGH_ALPHA(),
                   modelWaveModelList.get(i).getLOW_BETA(),modelWaveModelList.get(i).getHIGH_BETA(),modelWaveModelList.get(i).getLOW_GAMMA(),
                   modelWaveModelList.get(i).getMID_GAMMA(),modelWaveModelList.get(i).getAttention(),modelWaveModelList.get(i).getMeditation());
@@ -89,6 +180,28 @@ public class MainActivity extends AppCompatActivity {
     });
     ButterKnife.bind(this);
     neuroSky = createNeuroSky();
+  }
+  @Override
+  protected void onDestroy() {
+    mediaPlayer.release();
+    timer.cancel();
+    timer = null;
+    mediaPlayer = null;
+    super.onDestroy();
+  }
+  public class MySeekBar implements SeekBar.OnSeekBarChangeListener {
+    public void onProgressChanged(SeekBar seekBar, int progress,
+    boolean fromUser) {
+    }
+    /*滾動時,應當暫停後臺定時器*/
+    public void onStartTrackingTouch(SeekBar seekBar) {
+      isSeekBarChanging = true;
+    }
+    /*滑動結束後，重新設定值*/
+    public void onStopTrackingTouch(SeekBar seekBar) {
+      isSeekBarChanging = false;
+      mediaPlayer.seekTo(seekBar.getProgress());
+    }
   }
 
   @Override protected void onResume() {
@@ -168,31 +281,11 @@ public class MainActivity extends AppCompatActivity {
         break;
     }
 
-
-//    brainWaveItem = new HashMap<>();
-//    brainWaveData = new HashMap<>();
-
-//    brainWaveItem.put("ATTENTION", attention);
-//    brainWaveItem.put("MEDITATION", mediatation);
-//    brainWaveItem.put("ROW",bridge);
-//    Log.d(LOG_TAG, "中"+String.valueOf(brainWaveItem));
-
-//    bridge.get("DELTA");
-//    bridge.get("THETA");
-//    bridge.get("LOW_ALPHA");
-//    bridge.get("HIGH_ALPHA");
-//    bridge.get("LOW_BETA");
-//    bridge.get("HIGH_BETA");
-//    bridge.get("LOW_GAMMA");
-//    bridge.get("MID_GAMMA");
-
   }
 
   private String getFormattedMessage(String messageFormat, Signal signal) {
     return String.format(Locale.getDefault(), messageFormat, signal.getValue());
   }
-
-
 
   @OnClick(R.id.btn_connect) void connect() {
     try {
@@ -203,42 +296,15 @@ public class MainActivity extends AppCompatActivity {
     }
   }
 
-  //export excel
-  private File file;
-  private String fileName;
-//  public void exportExcel(View view) {
-//    file = new File(getSDPath() + "/Record");
-//    makeDir(file);
-//    ExcelUtils.initExcel(file.toString() + "/腦波.xls", title);
-//    fileName = getSDPath() + "/Record/腦波.xls";
-//    ExcelUtils.writeObjListToExcel(getRecordData(), fileName, this);
-//  }
-  private  String getSDPath() {
-    File sdDir = null;
-    boolean sdCardExist = Environment.getExternalStorageState().equals(
-            android.os.Environment.MEDIA_MOUNTED);
-    if (sdCardExist) {
-      sdDir = Environment.getExternalStorageDirectory();
-    }
-    String dir = sdDir.toString();
-    return dir;
-  }
-
-  public  void makeDir(File dir) {
-    if (!dir.getParentFile().exists()) {
-      makeDir(dir.getParentFile());
-    }
-    dir.mkdir();
-  }
   @OnClick(R.id.btn_disconnect) void disconnect() {
     neuroSky.disconnect();
   }
 
-  @OnClick(R.id.btn_start_monitoring) void startMonitoring() {
-    neuroSky.start();
-  }
-
-  @OnClick(R.id.btn_stop_monitoring) void stopMonitoring() {
-    neuroSky.stop();
-  }
+//  @OnClick(R.id.btn_start_monitoring) void startMonitoring() {
+//    neuroSky.start();
+//  }
+//
+//  @OnClick(R.id.btn_stop_monitoring) void stopMonitoring() {
+//    neuroSky.stop();
+//  }
 }

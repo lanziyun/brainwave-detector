@@ -55,16 +55,17 @@ public class PostDB extends AsyncTask {
             URL url = new URL(params[0].toString());
             String user_id = params[1].toString();
             String time = params[2].toString();
-            String DELTA = params[3].toString();
-            String THETA = params[4].toString();
-            String LOW_ALPHA = params[5].toString();
-            String HIGH_ALPHA = params[6].toString();
-            String LOW_BETA = params[7].toString();
-            String HIGH_BETA = params[8].toString();
-            String LOW_GAMMA = params[9].toString();
-            String MID_GAMMA = params[10].toString();
-            String ATTENTION = params[11].toString();
-            String MEDITATION = params[12].toString();
+            String song = params[3].toString();
+            String DELTA = params[4].toString();
+            String THETA = params[5].toString();
+            String LOW_ALPHA = params[6].toString();
+            String HIGH_ALPHA = params[7].toString();
+            String LOW_BETA = params[8].toString();
+            String HIGH_BETA = params[9].toString();
+            String LOW_GAMMA = params[10].toString();
+            String MID_GAMMA = params[11].toString();
+            String ATTENTION = params[12].toString();
+            String MEDITATION = params[13].toString();
             Log.d("gagaga",MEDITATION);
             HttpURLConnection httpURLConnection = (HttpURLConnection)url.openConnection();
             httpURLConnection.setRequestMethod("POST");
@@ -74,6 +75,7 @@ public class PostDB extends AsyncTask {
             BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(outputStream,"UTF-8"));
             String PostData = URLEncoder.encode("user_id","UTF-8")+"="+URLEncoder.encode(user_id,"UTF-8") + "&" +
                     URLEncoder.encode("time","UTF-8")+"="+URLEncoder.encode(time,"UTF-8") + "&" +
+                    URLEncoder.encode("song","UTF-8")+"="+URLEncoder.encode(song,"UTF-8") + "&" +
                     URLEncoder.encode("DELTA","UTF-8")+"="+URLEncoder.encode(DELTA,"UTF-8")+"&"+
                     URLEncoder.encode("THETA","UTF-8")+"="+URLEncoder.encode(THETA,"UTF-8") + "&" +
                     URLEncoder.encode("LOW_ALPHA","UTF-8")+"="+URLEncoder.encode(LOW_ALPHA,"UTF-8")+"&"+
@@ -113,16 +115,17 @@ public class PostDB extends AsyncTask {
             URL url = new URL(params[0].toString());
             String user_id = params[1].toString();
             String time = params[2].toString();
-            String DELTA = params[3].toString();
-            String THETA = params[4].toString();
-            String LOW_ALPHA = params[5].toString();
-            String HIGH_ALPHA = params[6].toString();
-            String LOW_BETA = params[7].toString();
-            String HIGH_BETA = params[8].toString();
-            String LOW_GAMMA = params[9].toString();
-            String MID_GAMMA = params[10].toString();
-            String ATTENTION = params[11].toString();
-            String MEDITATION = params[12].toString();
+            String song = params[3].toString();
+            String DELTA = params[4].toString();
+            String THETA = params[5].toString();
+            String LOW_ALPHA = params[6].toString();
+            String HIGH_ALPHA = params[7].toString();
+            String LOW_BETA = params[8].toString();
+            String HIGH_BETA = params[9].toString();
+            String LOW_GAMMA = params[10].toString();
+            String MID_GAMMA = params[11].toString();
+            String ATTENTION = params[12].toString();
+            String MEDITATION = params[13].toString();
             Log.d("gagaga",MEDITATION);
             HttpURLConnection httpURLConnection = (HttpURLConnection)url.openConnection();
             httpURLConnection.setRequestMethod("POST");
@@ -132,6 +135,7 @@ public class PostDB extends AsyncTask {
             BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(outputStream,"UTF-8"));
             String PostData = URLEncoder.encode("user_id","UTF-8")+"="+URLEncoder.encode(user_id,"UTF-8") + "&" +
                     URLEncoder.encode("time","UTF-8")+"="+URLEncoder.encode(time,"UTF-8") + "&" +
+                    URLEncoder.encode("song","UTF-8")+"="+URLEncoder.encode(song,"UTF-8") + "&" +
                     URLEncoder.encode("DELTA","UTF-8")+"="+URLEncoder.encode(DELTA,"UTF-8")+"&"+
                     URLEncoder.encode("THETA","UTF-8")+"="+URLEncoder.encode(THETA,"UTF-8") + "&" +
                     URLEncoder.encode("LOW_ALPHA","UTF-8")+"="+URLEncoder.encode(LOW_ALPHA,"UTF-8")+"&"+

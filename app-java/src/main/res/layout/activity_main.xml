@@ -52,19 +52,6 @@
         android:text="@string/connect"
         />
 
-    <Button
-        android:id="@+id/btn_start_monitoring"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/start_monitoring"
-        />
-
-    <Button
-        android:id="@+id/btn_stop_monitoring"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/stop_monitoring"
-        />
 
     <Button
         android:id="@+id/btn_disconnect"
@@ -72,26 +59,60 @@
         android:layout_height="wrap_content"
         android:text="@string/disconnect"
         />
-    <Button
-        android:onClick="exportExcel"
-        android:text="点击导出Excel"
-        android:layout_centerInParent="true"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-    <Button
-        android:id="@+id/test"
-        android:onClick="exportExcel"
-        android:text="post"
-        android:layout_centerInParent="true"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+
     <Button
         android:id="@+id/getAll"
         android:onClick="getAll"
-        android:text="getAll"
+        android:text="藍寶取得資料"
         android:layout_centerInParent="true"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
+
+    <!--/*android:onClick="exportExcel"-->
+    <Button
+        android:id="@+id/test"
+        android:text="藍寶資料丟起來"
+        android:layout_centerInParent="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <SeekBar
+        android:id="@+id/playSeekBar"
+        android:layout_width="match_parent"
+        android:layout_height="42dp"
+        android:layout_marginLeft="3px"
+        android:layout_marginTop="5px" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:weightSum="3">
+
+      <Button
+          android:id="@+id/start"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:text="藍寶播起來"
+          android:layout_weight="1"/>
+
+      <Button
+          android:id="@+id/pause"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:text="藍寶暫停起來"
+          android:layout_weight="1"/>
+
+      <Button
+          android:id="@+id/stop"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:text="藍寶投胎囉~"
+          android:layout_weight="1"/>
+
+    </LinearLayout>
+
   </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

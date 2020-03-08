@@ -7,6 +7,7 @@ public class WaveModel {
     String date;
     String sex;
     String age;
+    String song;
     String place;
     String doing;
     String DELTA;
@@ -163,5 +164,14 @@ public class WaveModel {
 
     public void setDoing(String doing) {
         this.doing = doing;
+    }
+
+
+    public String getSong() {
+        return song;
+    }
+
+    public void setSong(String song) {
+        this.song = song;
     }
 }
