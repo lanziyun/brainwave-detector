@@ -1,118 +1,207 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity"
-    >
-
-  <LinearLayout
-      android:layout_width="match_parent"
-      android:layout_height="match_parent"
-      android:orientation="vertical"
-      >
-
-    <TextView
-        android:id="@+id/tv_state"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="15dp"
-        android:text="@string/waiting_for_state"
-        />
-
-    <TextView
-        android:id="@+id/tv_attention"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="15dp"
-        android:text="@string/waiting_for_attention_signal"
-        />
-
-    <TextView
-        android:id="@+id/tv_meditation"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="15dp"
-        android:text="@string/waiting_for_meditation_signal"
-        />
-
-    <TextView
-        android:id="@+id/tv_blink"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="15dp"
-        android:text="@string/waiting_for_blink_signal"
-        />
-
-    <Button
-        android:id="@+id/btn_connect"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/connect"
-        />
-
-
-    <Button
-        android:id="@+id/btn_disconnect"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/disconnect"
-        />
-
-    <Button
-        android:id="@+id/getAll"
-        android:onClick="getAll"
-        android:text="藍寶取得資料"
-        android:layout_centerInParent="true"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-
-    <!--/*android:onClick="exportExcel"-->
-    <Button
-        android:id="@+id/test"
-        android:text="藍寶資料丟起來"
-        android:layout_centerInParent="true"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-
-    <SeekBar
-        android:id="@+id/playSeekBar"
-        android:layout_width="match_parent"
-        android:layout_height="42dp"
-        android:layout_marginLeft="3px"
-        android:layout_marginTop="5px" />
+    android:background="@drawable/brain">
 
     <LinearLayout
         android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tv_state"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:text="@string/waiting_for_state"
+            android:textSize="15dp"
+            android:textStyle="bold"/>
+
+        <TextView
+            android:id="@+id/tv_attention"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:text="@string/waiting_for_attention_signal"
+            android:textSize="15dp"
+            android:textStyle="bold"/>
+
+        <TextView
+            android:id="@+id/tv_meditation"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:text="@string/waiting_for_meditation_signal"
+            android:textSize="15dp"
+            android:textStyle="bold"/>
+
+        <TextView
+            android:id="@+id/tv_blink"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:text="@string/waiting_for_blink_signal"
+            android:textSize="15dp"
+            android:textStyle="bold"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:weightSum="2">
+
+            <Button
+                android:id="@+id/btn_connect"
+                android:layout_width="150dp"
+                android:layout_height="40dp"
+                android:layout_gravity="center"
+                android:layout_margin="5dp"
+                android:background="@drawable/layout"
+                android:text="@string/connect"
+                android:textColor="#FFFFFF"
+                android:textSize="15sp"
+                android:textStyle="bold"/>
+
+            <Button
+                android:id="@+id/btn_disconnect"
+                android:layout_width="150dp"
+                android:layout_height="40dp"
+                android:layout_gravity="center"
+                android:layout_margin="5dp"
+                android:background="@drawable/layout2"
+                android:text="@string/disconnect"
+                android:textColor="#000"
+                android:textSize="15sp"
+                android:textStyle="bold"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:weightSum="2">
+
+            <Button
+                android:id="@+id/getAll"
+                android:layout_width="150dp"
+                android:layout_height="40dp"
+                android:layout_gravity="center"
+                android:layout_margin="5dp"
+                android:background="@drawable/layout"
+                android:text="取得資料"
+                android:textColor="#FFFFFF"
+                android:textSize="15sp"
+                android:textStyle="bold"/>
+
+            <Button
+                android:id="@+id/post"
+                android:layout_width="150dp"
+                android:layout_height="40dp"
+                android:layout_gravity="center"
+                android:layout_margin="5dp"
+                android:background="@drawable/layout"
+                android:text="資料儲存"
+                android:textColor="#FFFFFF"
+                android:textSize="15sp"
+                android:textStyle="bold"/>
+        </LinearLayout>
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="12dp" />
+
+        <SeekBar
+            android:id="@+id/playSeekBar"
+            android:layout_width="match_parent"
+            android:layout_height="42dp"
+            android:maxHeight="5dip"
+            android:minHeight="5dip"
+            android:paddingLeft="8dip"
+            android:paddingRight="8dip"
+            android:progressDrawable="@drawable/seekbar_bg"
+            android:thumb="@drawable/sb_thumb" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:weightSum="3">
+
+
+            <ImageButton
+                android:id="@+id/start"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:layout_weight="1"
+                android:background="@drawable/layout"
+                android:src="@drawable/start" />
+
+            <ImageButton
+                android:id="@+id/pause"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:layout_weight="1"
+                android:background="@drawable/layout"
+                android:src="@drawable/pause" />
+
+            <ImageButton
+                android:id="@+id/stop"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:layout_weight="1"
+                android:background="@drawable/layout"
+                android:src="@drawable/stop" />
+
+        </LinearLayout>
+
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="12dp" />
+
+        <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
+        android:layout_gravity="center"
         android:gravity="center"
-        android:weightSum="3">
+        android:orientation="horizontal"
+        android:weightSum="2">
+        <Button
+            android:id="@+id/clear"
+            android:layout_width="150dp"
+            android:layout_height="40dp"
+            android:layout_gravity="center"
+            android:layout_margin="5dp"
+            android:background="@drawable/layout"
+            android:text="清除資料"
+            android:textColor="#FFFFFF"
+            android:textSize="15sp"
+            android:textStyle="bold"/>
 
-      <Button
-          android:id="@+id/start"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:text="藍寶播起來"
-          android:layout_weight="1"/>
-
-      <Button
-          android:id="@+id/pause"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:text="藍寶暫停起來"
-          android:layout_weight="1"/>
-
-      <Button
-          android:id="@+id/stop"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:text="藍寶投胎囉~"
-          android:layout_weight="1"/>
-
+        <Button
+            android:id="@+id/userplus"
+            android:layout_width="150dp"
+            android:layout_height="40dp"
+            android:layout_gravity="center"
+            android:layout_margin="5dp"
+            android:background="@drawable/layout"
+            android:text="使用者切換"
+            android:textColor="#FFFFFF"
+            android:textSize="15sp"
+            android:textStyle="bold"/>
     </LinearLayout>
-
-  </LinearLayout>
-
+    </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

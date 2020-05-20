@@ -1,7 +1,6 @@
 package com.github.pwittchen.neurosky.app;
 
 
-
 import android.os.AsyncTask;
 import android.util.Log;
 
@@ -29,29 +28,29 @@ public class PostDB extends AsyncTask {
     private List<String> list_package_finish_date;
     String line = "";
     public int flag = 0;
-    public PostDB(){
+
+    public PostDB() {
 
 
     }
-    public PostDB(int flag){
+
+    public PostDB(int flag) {
         this.flag = flag;
     }
 
 
-
-
     @Override
     protected Object doInBackground(Object[] params) {
-        if(flag == 1){
+        if (flag == 1) {
             AddDicuss2(params);
         }
         AddDicuss(params);
         return null;
     }
 
-    public void AddDicuss2(Object[] params){
+    public void AddDicuss2(Object[] params) {
 
-        try{
+        try {
             URL url = new URL(params[0].toString());
             String user_id = params[1].toString();
             String time = params[2].toString();
@@ -66,52 +65,55 @@ public class PostDB extends AsyncTask {
             String MID_GAMMA = params[11].toString();
             String ATTENTION = params[12].toString();
             String MEDITATION = params[13].toString();
-            Log.d("gagaga",MEDITATION);
-            HttpURLConnection httpURLConnection = (HttpURLConnection)url.openConnection();
+            String StartMusic = params[14].toString();
+            Log.d("gagaga", MEDITATION);
+            HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
             httpURLConnection.setRequestMethod("POST");
             httpURLConnection.setDoInput(true);
             httpURLConnection.setDoOutput(true);
             OutputStream outputStream = httpURLConnection.getOutputStream();
-            BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(outputStream,"UTF-8"));
-            String PostData = URLEncoder.encode("user_id","UTF-8")+"="+URLEncoder.encode(user_id,"UTF-8") + "&" +
-                    URLEncoder.encode("time","UTF-8")+"="+URLEncoder.encode(time,"UTF-8") + "&" +
-                    URLEncoder.encode("song","UTF-8")+"="+URLEncoder.encode(song,"UTF-8") + "&" +
-                    URLEncoder.encode("DELTA","UTF-8")+"="+URLEncoder.encode(DELTA,"UTF-8")+"&"+
-                    URLEncoder.encode("THETA","UTF-8")+"="+URLEncoder.encode(THETA,"UTF-8") + "&" +
-                    URLEncoder.encode("LOW_ALPHA","UTF-8")+"="+URLEncoder.encode(LOW_ALPHA,"UTF-8")+"&"+
-                    URLEncoder.encode("HIGH_ALPHA","UTF-8")+"="+URLEncoder.encode(HIGH_ALPHA,"UTF-8") + "&" +
-                    URLEncoder.encode("LOW_BETA","UTF-8")+"="+URLEncoder.encode(LOW_BETA,"UTF-8")+"&"+
-                    URLEncoder.encode("HIGH_BETA","UTF-8")+"="+URLEncoder.encode(HIGH_BETA,"UTF-8") + "&" +
-                    URLEncoder.encode("LOW_GAMMA","UTF-8")+"="+URLEncoder.encode(LOW_GAMMA,"UTF-8")+"&"+
-                    URLEncoder.encode("MID_GAMMA","UTF-8")+"="+URLEncoder.encode(MID_GAMMA,"UTF-8")+ "&" +
-                    URLEncoder.encode("ATTENTION","UTF-8")+"="+URLEncoder.encode(ATTENTION,"UTF-8") + "&" +
-                    URLEncoder.encode("MEDITATION","UTF-8")+"="+URLEncoder.encode(MEDITATION,"UTF-8");
-            Log.d("gagaga",PostData);
+            BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(outputStream, "UTF-8"));
+            String PostData = URLEncoder.encode("user_id", "UTF-8") + "=" + URLEncoder.encode(user_id, "UTF-8") + "&" +
+                    URLEncoder.encode("time", "UTF-8") + "=" + URLEncoder.encode(time, "UTF-8") + "&" +
+                    URLEncoder.encode("song", "UTF-8") + "=" + URLEncoder.encode(song, "UTF-8") + "&" +
+                    URLEncoder.encode("DELTA", "UTF-8") + "=" + URLEncoder.encode(DELTA, "UTF-8") + "&" +
+                    URLEncoder.encode("THETA", "UTF-8") + "=" + URLEncoder.encode(THETA, "UTF-8") + "&" +
+                    URLEncoder.encode("LOW_ALPHA", "UTF-8") + "=" + URLEncoder.encode(LOW_ALPHA, "UTF-8") + "&" +
+                    URLEncoder.encode("HIGH_ALPHA", "UTF-8") + "=" + URLEncoder.encode(HIGH_ALPHA, "UTF-8") + "&" +
+                    URLEncoder.encode("LOW_BETA", "UTF-8") + "=" + URLEncoder.encode(LOW_BETA, "UTF-8") + "&" +
+                    URLEncoder.encode("HIGH_BETA", "UTF-8") + "=" + URLEncoder.encode(HIGH_BETA, "UTF-8") + "&" +
+                    URLEncoder.encode("LOW_GAMMA", "UTF-8") + "=" + URLEncoder.encode(LOW_GAMMA, "UTF-8") + "&" +
+                    URLEncoder.encode("MID_GAMMA", "UTF-8") + "=" + URLEncoder.encode(MID_GAMMA, "UTF-8") + "&" +
+                    URLEncoder.encode("ATTENTION", "UTF-8") + "=" + URLEncoder.encode(ATTENTION, "UTF-8") + "&" +
+                    URLEncoder.encode("MEDITATION", "UTF-8") + "=" + URLEncoder.encode(MEDITATION, "UTF-8") + "&" +
+                    URLEncoder.encode("StartMusic", "UTF-8") + "=" + URLEncoder.encode(StartMusic, "UTF-8");
+            Log.d("gagaga", PostData);
             bufferedWriter.write(PostData);
-            Log.d("gagaga",PostData);
+            Log.d("gagaga", PostData);
             bufferedWriter.flush();
             bufferedWriter.close();
             outputStream.close();
             InputStream inputStream = httpURLConnection.getInputStream();
-            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream , "UTF-8"));
+            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream, "UTF-8"));
 
             StringBuilder sb1 = new StringBuilder("");
             while ((line = bufferedReader.readLine()) != null) {
                 sb1.append(line);
             }
             Log.d("gagaga", sb1.toString());
-            bufferedReader.close();inputStream.close();httpURLConnection.disconnect();
-        }catch (Exception e){
-            Log.d("gagaga",e.getMessage());
+            bufferedReader.close();
+            inputStream.close();
+            httpURLConnection.disconnect();
+        } catch (Exception e) {
+            Log.d("gagaga", e.getMessage());
         }
 
     }
 
 
+    public void AddDicuss(Object[] params) {
 
-    public void AddDicuss(Object[] params){
-
-        try{
+        try {
             URL url = new URL(params[0].toString());
             String user_id = params[1].toString();
             String time = params[2].toString();
@@ -126,45 +128,50 @@ public class PostDB extends AsyncTask {
             String MID_GAMMA = params[11].toString();
             String ATTENTION = params[12].toString();
             String MEDITATION = params[13].toString();
-            Log.d("gagaga",MEDITATION);
-            HttpURLConnection httpURLConnection = (HttpURLConnection)url.openConnection();
+            String StartMusic = params[14].toString();
+            Log.d("gagaga", MEDITATION);
+            HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
             httpURLConnection.setRequestMethod("POST");
             httpURLConnection.setDoInput(true);
             httpURLConnection.setDoOutput(true);
             OutputStream outputStream = httpURLConnection.getOutputStream();
-            BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(outputStream,"UTF-8"));
-            String PostData = URLEncoder.encode("user_id","UTF-8")+"="+URLEncoder.encode(user_id,"UTF-8") + "&" +
-                    URLEncoder.encode("time","UTF-8")+"="+URLEncoder.encode(time,"UTF-8") + "&" +
-                    URLEncoder.encode("song","UTF-8")+"="+URLEncoder.encode(song,"UTF-8") + "&" +
-                    URLEncoder.encode("DELTA","UTF-8")+"="+URLEncoder.encode(DELTA,"UTF-8")+"&"+
-                    URLEncoder.encode("THETA","UTF-8")+"="+URLEncoder.encode(THETA,"UTF-8") + "&" +
-                    URLEncoder.encode("LOW_ALPHA","UTF-8")+"="+URLEncoder.encode(LOW_ALPHA,"UTF-8")+"&"+
-                    URLEncoder.encode("HIGH_ALPHA","UTF-8")+"="+URLEncoder.encode(HIGH_ALPHA,"UTF-8") + "&" +
-                    URLEncoder.encode("LOW_BETA","UTF-8")+"="+URLEncoder.encode(LOW_BETA,"UTF-8")+"&"+
-                    URLEncoder.encode("HIGH_BETA","UTF-8")+"="+URLEncoder.encode(HIGH_BETA,"UTF-8") + "&" +
-                    URLEncoder.encode("LOW_GAMMA","UTF-8")+"="+URLEncoder.encode(LOW_GAMMA,"UTF-8")+"&"+
-                    URLEncoder.encode("MID_GAMMA","UTF-8")+"="+URLEncoder.encode(MID_GAMMA,"UTF-8")+ "&" +
-                    URLEncoder.encode("ATTENTION","UTF-8")+"="+URLEncoder.encode(ATTENTION,"UTF-8") + "&" +
-                    URLEncoder.encode("MEDITATION","UTF-8")+"="+URLEncoder.encode(MEDITATION,"UTF-8");
+            BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(outputStream, "UTF-8"));
+            String PostData = URLEncoder.encode("user_id", "UTF-8") + "=" + URLEncoder.encode(user_id, "UTF-8") + "&" +
+                    URLEncoder.encode("time", "UTF-8") + "=" + URLEncoder.encode(time, "UTF-8") + "&" +
+                    URLEncoder.encode("song", "UTF-8") + "=" + URLEncoder.encode(song, "UTF-8") + "&" +
+                    URLEncoder.encode("DELTA", "UTF-8") + "=" + URLEncoder.encode(DELTA, "UTF-8") + "&" +
+                    URLEncoder.encode("THETA", "UTF-8") + "=" + URLEncoder.encode(THETA, "UTF-8") + "&" +
+                    URLEncoder.encode("LOW_ALPHA", "UTF-8") + "=" + URLEncoder.encode(LOW_ALPHA, "UTF-8") + "&" +
+                    URLEncoder.encode("HIGH_ALPHA", "UTF-8") + "=" + URLEncoder.encode(HIGH_ALPHA, "UTF-8") + "&" +
+                    URLEncoder.encode("LOW_BETA", "UTF-8") + "=" + URLEncoder.encode(LOW_BETA, "UTF-8") + "&" +
+                    URLEncoder.encode("HIGH_BETA", "UTF-8") + "=" + URLEncoder.encode(HIGH_BETA, "UTF-8") + "&" +
+                    URLEncoder.encode("LOW_GAMMA", "UTF-8") + "=" + URLEncoder.encode(LOW_GAMMA, "UTF-8") + "&" +
+                    URLEncoder.encode("MID_GAMMA", "UTF-8") + "=" + URLEncoder.encode(MID_GAMMA, "UTF-8") + "&" +
+                    URLEncoder.encode("ATTENTION", "UTF-8") + "=" + URLEncoder.encode(ATTENTION, "UTF-8") + "&" +
+                    URLEncoder.encode("MEDITATION", "UTF-8") + "=" + URLEncoder.encode(MEDITATION, "UTF-8") + "&" +
+                    URLEncoder.encode("StartMusic", "UTF-8") + "=" + URLEncoder.encode(StartMusic, "UTF-8");
             bufferedWriter.write(PostData);
-            Log.d("gagaga",PostData);
+            Log.d("gagaga", PostData);
             bufferedWriter.flush();
             bufferedWriter.close();
             outputStream.close();
             InputStream inputStream = httpURLConnection.getInputStream();
-            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream , "UTF-8"));
+            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream, "UTF-8"));
 
             StringBuilder sb1 = new StringBuilder("");
             while ((line = bufferedReader.readLine()) != null) {
                 sb1.append(line);
             }
             Log.d("gagaga", sb1.toString());
-            bufferedReader.close();inputStream.close();httpURLConnection.disconnect();
-        }catch (Exception e){
-            Log.d("gagaga",e.getMessage());
+            bufferedReader.close();
+            inputStream.close();
+            httpURLConnection.disconnect();
+        } catch (Exception e) {
+            Log.d("gagaga", e.getMessage());
         }
 
     }
+
     @Override
     protected void onPostExecute(Object o) {
 

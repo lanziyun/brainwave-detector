@@ -20,9 +20,12 @@ public class WaveModel {
     String MID_GAMMA;
     String Attention;
     String Meditation;
+    String StartMusic;
 
-    public WaveModel(String HIGH_ALPHA,String THETA,String MID_GAMMA,String HIGH_BETA,String DELTA,
-                     String LOW_GAMMA,String LOW_BETA,String LOW_ALPHA, String Attention,String Meditation){
+
+
+    public WaveModel(String HIGH_ALPHA, String THETA, String MID_GAMMA, String HIGH_BETA, String DELTA,
+                     String LOW_GAMMA, String LOW_BETA, String LOW_ALPHA, String Attention, String Meditation, String StartMusic,String song) {
         this.DELTA = DELTA;
         this.THETA = THETA;
         this.HIGH_ALPHA = HIGH_ALPHA;
@@ -33,14 +36,22 @@ public class WaveModel {
         this.MID_GAMMA = MID_GAMMA;
         this.Attention = Attention;
         this.Meditation = Meditation;
+        this.StartMusic = StartMusic;
+        this.song = song;
+    }
+    public String getStartMusic() {
+        return StartMusic;
+    }
 
+    public void setStartMusic(String startMusic) {
+        StartMusic = startMusic;
     }
     public String getAttention() {
         return Attention;
     }
 
     public String getAll() {
-        return DELTA+THETA+ LOW_ALPHA+ HIGH_ALPHA+LOW_BETA+HIGH_BETA+LOW_GAMMA+MID_GAMMA+Attention+Meditation;
+        return DELTA + THETA + LOW_ALPHA + HIGH_ALPHA + LOW_BETA + HIGH_BETA + LOW_GAMMA + MID_GAMMA + Attention + Meditation;
     }
 
     public void setAttention(String attention) {
@@ -119,6 +130,7 @@ public class WaveModel {
     public void setMID_GAMMA(String MID_GAMMA) {
         this.MID_GAMMA = MID_GAMMA;
     }
+
     public String getUser_id() {
         return user_id;
     }
@@ -134,6 +146,7 @@ public class WaveModel {
     public void setDate(String date) {
         this.date = date;
     }
+
     public String getSex() {
         return sex;
     }
