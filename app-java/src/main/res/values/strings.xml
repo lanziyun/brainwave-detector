@@ -4,9 +4,9 @@
   <string name="disconnect">取消連線</string>
   <string name="stop_monitoring">stop monitoring</string>
   <string name="start_monitoring">start monitoring</string>
-  <string name="waiting_for_raw_signal">等待訊號中....</string>
-  <string name="waiting_for_blink_signal">等待眨眼訊號中....</string>
-  <string name="waiting_for_meditation_signal">等待放鬆值...</string>
-  <string name="waiting_for_attention_signal">等待專注值...</string>
-  <string name="waiting_for_state">狀態等待中...</string>
+  <string name="waiting_for_raw_signal">    等待訊號中....</string>
+  <string name="waiting_for_blink_signal">    等待眨眼訊號中....</string>
+  <string name="waiting_for_meditation_signal">    等待放鬆值...</string>
+  <string name="waiting_for_attention_signal">    等待專注值...</string>
+  <string name="waiting_for_state">    狀態等待中...</string>
 </resources>

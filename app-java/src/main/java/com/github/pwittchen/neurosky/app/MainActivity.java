@@ -162,10 +162,10 @@ public class MainActivity extends AppCompatActivity implements Runnable{
                             time2[0] = (Integer.parseInt(time2[0]) + 1) + "";
                         }
                     }
-//172.20.10.6我的
+//172.20.10.6我的 192.168.43.161
                     time = time2[0] + ":" + time2[1] + ":" + time2[2];
                     PostDB postDB = new PostDB();
-                    postDB.execute("http://172.20.10.6:80/register_finish.php", "40", time, modelWaveModelList.get(i).getSong(), modelWaveModelList.get(i).getDELTA(),
+                    postDB.execute("http://172.20.10.6:80/register_finish.php", "41", time, modelWaveModelList.get(i).getSong(), modelWaveModelList.get(i).getDELTA(),
                             modelWaveModelList.get(i).getTHETA(), modelWaveModelList.get(i).getLOW_ALPHA(), modelWaveModelList.get(i).getHIGH_ALPHA(),
                             modelWaveModelList.get(i).getLOW_BETA(), modelWaveModelList.get(i).getHIGH_BETA(), modelWaveModelList.get(i).getLOW_GAMMA(),
                             modelWaveModelList.get(i).getMID_GAMMA(), modelWaveModelList.get(i).getAttention(), modelWaveModelList.get(i).getMeditation(), modelWaveModelList.get(i).getStartMusic());
